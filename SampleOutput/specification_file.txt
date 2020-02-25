@@ -1,0 +1,6 @@
+squaresX 12
+squaresY 15
+squareLength 200
+markerLength 100
+margins 100
+arc_code 11
