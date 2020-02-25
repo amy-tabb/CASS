@@ -50,16 +50,16 @@ Paper citation:
 ````
 
 Code release citation:
-TODO plaintext
+Tabb, Amy. (2020). Data and Code from: Using cameras for precise measurement of two-dimensional plant features: CASS (Version v 1.0) [Data set]. Zenodo. http://doi.org/10.5281/zenodo.3677473
 
 ````latex
-@dataset{tabb_amy_3677473,
+@dataset{tabb_amy_2020_3677473,
   author       = {Tabb, Amy},
-  title        = {Data and Code from: Using cameras for precise measurement of two-dimensional plant features},
+  title        = {{Data and Code from: Using cameras for precise measurement of two-dimensional plant features: CASS}},
   month        = feb,
   year         = 2020,
   publisher    = {Zenodo},
-  version      = {1.0},
+  version      = {v 1.0},
   doi          = {10.5281/zenodo.3677473},
   url          = {https://doi.org/10.5281/zenodo.3677473}
 }
@@ -108,13 +108,10 @@ sudo apt-get install libimage-exiftool-perl
 
 To test, make sure that the `exiftool` can be run from directory where you are setting up the `camera-as-scanner` project.
 
-TODO
-
-**Is getting all of this to work on your system too much of a pain and you are interested in a Docker release?  Let me know!  The squeaky wheel gets the grease.  Email above.**
+TODO -- Docker release to come.
 
 ## Building 
 
-TODO -- redo given the new repos.
 To build, you'll also need Cmake.  Alternate methods are available, but cmake is faster.  On Ubuntu, 
 
 ```` bash
@@ -125,13 +122,13 @@ sudo apt-get install cmake
 1. Clone the git repository to a desired location.. 
 
 ```bash
-git clone https://github.com/amy-tabb/camera-as-scanner-2020.git
+git clone https://github.com/amy-tabb/CASS.git
 ```
 
-Then change to the `camera-as-scanner-2020`.  
+Then change to the `CASS`.  
  
 ```bash
-cd camera-as-scanner-2020
+cd CASS
 ```
 
 2. Create a `build` folder (or something similar), and `cd` into it: `cd build`.
