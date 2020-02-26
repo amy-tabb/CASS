@@ -5,14 +5,15 @@ Camera-as-Scanner: Code for taking measurements from images of an object on top 
 Roadmap
 - [Contact](#contact)
 - [References](#underlying-ideas-how-and-when-to-cite-this-work)
+- [Docker release](#docker-release)
 - [Dependences](#dependencies)
 	- [Tested operating system](#tested-operating-system)
 	- [OpenCV 4](#opencv-4)
 	- [Exiftools](#exiftools)
 - [Building](#building)
-- [Running camera-as-scanner executable](running-camera-as-scanner-executable)
-	- [Read directory format, camera-as-scanner](read-directory-format-camera-as-scanner)
-	- [Write directory format, camera-as-scanner](write-directory-format-camera-as-scanner)
+- [Running camera-as-scanner executable](#running-camera-as-scanner-executable)
+	- [Read directory format, camera-as-scanner](#read-directory-format-camera-as-scanner)
+	- [Write directory format, camera-as-scanner](#write-directory-format-camera-as-scanner)
 - [Running aruco-pattern-write executable](#running-aruco-pattern-write-executable)
 	- [Directory format, input aruco-pattern-write ](#directory-format-input-aruco-pattern-write)
 	- [Directory format, output aruco-pattern-write ](#directory-format-output-aruco-pattern-write)
@@ -68,6 +69,60 @@ Tabb, Amy. (2020). Data and Code from: Using cameras for precise measurement of 
 
 If you use this code in project that results in a publication, please cite at a minimum the paper above.  Otherwise, there are no restrictions in your use of this code.  However, no guarantees are expressed or implied.
 
+## Docker release
+
+To avoid building the code yourself, a Docker image of this project is available, and the Dockerfile used to generate it is part of this repository.
+
+I suggest using the Docker release to evaluate this code and as a fast way to get started with it, as the code itself runs quickly.  If you want to extend or look at the details of the code, you can build it yourself using the instructions and code in this repository.
+
+### Install Docker
+
+[Install Docker](https://docs.docker.com/install/), if you haven't already.  I endorse uninstalling old versions if you have them floating around.
+
+### Pull the image
+
+The image for CASS is : [amytabb/docker-cass](https://hub.docker.com/r/amytabb/docker-cass).
+
+```bash
+docker pull amytabb/docker-cass
+```
+
+### Run the image
+
+CASS will write the results to disk; to do so with Docker means that we need to mount a portion of your hard drive to a volume in the Docker image.
+
+I used a bind mount below; the Docker image's volume is `host_dir` and will not change no matter which machine or dataset you run it on.  `/full/file/path/on/your/machine` is the directory that you want the reading and writing to occur.  
+
+Example:
+
+```bash
+sudo docker run -v /full/file/path/on/your/machine:/host_dir -it amytabb/docker-cass:latest bash
+```
+
+The bind mount is potentially confusing, so here is an example.  Say I have a directory `/home/amy/Data/March/` and within `March` is a directory of images that I want to process with CASS.  I also want to write to a directory within `/home/amy/Data/March/`.  So, 
+
+```bash
+sudo docker run -v /home/amy/Data/March:/host_dir -it amytabb/docker-cass:latest bash
+```
+
+Creates a container with all of the libraries and a Ubuntu 18.04 operating system, and bash shell (command line), and may look something like:
+
+```bash
+root@f6feb7ce8c31:/host_dir# 
+```
+
+but if you take a look at the contents of `/host_dir`, with `ls`, they are `/home/amy/Data/March/`.  That's the bind mount magic.
+
+First, suppose we forgot to create the write directory.  No problem.
+
+```bash
+root@f6feb7ce8c31:/host_dir# mkdir write-dir
+```
+
+creates our write directory `write-dir`.
+
+And from here on out, we issue commands from this Docker container, which is writing to our filesystem.  Skip to [Running camera-as-scanner executable](#running-camera-as-scanner-executable) to get details on how to run the code.  The only difference is that `./` is not needed before commands when using the Docker version.
+
 ## Dependencies
 
 This code uses the OpenCV 4.0, OpenCV 4.0 extra modules, Eigen and is written in C++. It also uses the `exiftool` executable.
@@ -108,7 +163,7 @@ sudo apt-get install libimage-exiftool-perl
 
 To test, make sure that the `exiftool` can be run from directory where you are setting up the `camera-as-scanner` project.
 
-TODO -- Docker release to come.
+
 
 ## Building 
 
@@ -153,6 +208,8 @@ where `/usr/local/opencv41/lib/cmake/opencv4/` is the directory containing `Open
 4. Then, you can either import the project to Eclipse (if you used the last option), and build from there, or type `make`.   If the everything compiled and linked, and you have two executables named `camera-as-scanner` and `aruco-pattern-write`, you are ready to go.
 
 5. I highly suggest that you download at least one test dataset from [Zenodo data release](http://doi.org/10.5281/zenodo.3677473).  These datasets are in the format needed for CASS, and you can ensure that everything is correctly configured on your system.
+
+[6.]  You can run `make install` to install this code to your system. However, this is optional.  To change the installation directory, add `-DCMAKE_INSTALL_PREFIX=/your/preferred/dir` to the cmake call, or alter this option in cmake-gui.
 
 ### Alternates
 
