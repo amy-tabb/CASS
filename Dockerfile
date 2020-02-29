@@ -1,4 +1,4 @@
-FROM amytabb/ubuntu18-ceres-opencv4-contrib2:latest
+FROM amytabb/ubuntu18-ceres-opencv4-contrib-all:latest
 
 MAINTAINER Amy Tabb
 
