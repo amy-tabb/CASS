@@ -324,14 +324,14 @@ Within the read directory used as an argument above, you will need to create a t
 
 All of these values can be changed to reflect the wishes of the user, but highly suggest not changing `arc_code`, which is the code used to generate the dictionary of aruco patterns within OpenCV.  Also, `squaresX`*`squaresY`< `1000` given that the dictionary we have used is `cv::aruco::DICT_6X6_1000`.  
 
-	```
+````
 	squaresX 12
 	squaresY 15
 	squareLength 200
 	markerLength 100
 	margins 100
 	arc_code 11
-	```
+````
 
 ### Directory format, output aruco-pattern-write  
 
