@@ -2,6 +2,8 @@
 
 Camera-as-Scanner: Code for taking measurements from images of an object on top of a calibration pattern.
 
+[![DOI](https://zenodo.org/badge/243076404.svg)](https://zenodo.org/badge/latestdoi/243076404)
+
 Roadmap
 - [Contact](#contact)
 - [References](#underlying-ideas-how-and-when-to-cite-this-work)
@@ -27,8 +29,6 @@ Code for taking measurements from images of an object on top of a calibration pa
 
 March 2019.
 - update March 2020.  
-
-TODO -- DOI for code.
 
 # Underlying ideas; how and when to cite this work
 
