@@ -19,7 +19,7 @@ Roadmap
 	- [Directory format, output aruco-pattern-write ](#directory-format-output-aruco-pattern-write)
 	- [Altering](#altering)
 
-#Contact
+# Contact
 
 Comments/Bugs/Problems: amy.tabb@usda.gov
 
