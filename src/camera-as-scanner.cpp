@@ -51,6 +51,10 @@ int main(int argc, char **argv) {
 
 	int print_help = 0;
 
+	if (argc == 1){
+		print_help = 1;
+	}
+
 	while (1)
 	{
 		static struct option long_options[] =
