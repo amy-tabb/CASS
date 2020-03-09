@@ -29,11 +29,13 @@ int CreateTemplateArucoImages(vector<Mat>& images, int squaresX, int squaresY, i
 	Ptr<aruco::Dictionary> dictionary =
 			aruco::getPredefinedDictionary(aruco::PREDEFINED_DICTIONARY_NAME(arc_code));
 
+	int white_space_buff = squareLength - markerLength;
+	int extra_to_add = 2*margins - white_space_buff;
+
 	Size imageSize;
 
-	imageSize.width = squaresX * squareLength;
-	imageSize.height = squaresY * squareLength;
-
+	imageSize.width = squaresX * squareLength + extra_to_add;
+	imageSize.height = squaresY * squareLength + extra_to_add;
 
 	//////////// this creates the aruco board.
 	Mat markerImg;
@@ -46,8 +48,8 @@ int CreateTemplateArucoImages(vector<Mat>& images, int squaresX, int squaresY, i
 			aruco::drawMarker(dictionary, count, markerLength, markerImg, 1);
 
 			/// where to place?
-			x0 = x*squareLength + margins/2;
-			y0 = y*squareLength + margins/2;
+			x0 = x*squareLength + margins;
+			y0 = y*squareLength + margins;
 
 			Rect R = Rect(x0, y0, markerLength, markerLength);
 
@@ -59,9 +61,6 @@ int CreateTemplateArucoImages(vector<Mat>& images, int squaresX, int squaresY, i
 
 	return 0;
 }
-
-
-
 
 
 string FindValueOfFieldInFile(string filename, string fieldTag, bool seperator){
@@ -825,7 +824,7 @@ void CameraCali::CalibrateArucoSinglyAndUndistort(string write_dir, double homog
 		out << "rms " << rms << endl;
 		out << "K" << endl << internal_parameters << endl;
 		out << "dist " << endl << distortion << endl;
-		out << "external" << Ext << endl;
+		out << "external" << endl << Ext << endl;
 
 		// undistort
 		cv::Mat view, rview, map1, map2;
