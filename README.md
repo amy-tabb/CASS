@@ -30,6 +30,10 @@ Code for taking measurements from images of an object on top of a calibration pa
 March 2019.
 - update March 2020.  
 
+CHANGELOG
+
+March 9, 2020. Corrected a miscalculation in aruco-pattern-write-project.cpp and camera_calibration.cpp as it relates to margins.  Specifically, specification files with large marker:square ratios end up running off the page in prior versions, and the margin value was not being used correctly.  Tested and corrected.
+
 # Underlying ideas; how and when to cite this work
 
 Computer vision explanation: This code takes an image of an object on top of an aruco calibration pattern, calibrates the camera using the detected aruco information as well as EXIF tag information, and undistorts and computes the homography from the current location of the aruco calibration pattern in the image to its location in physical space.  Then the image is warped to match the coordinate system of the aruco coordinate system, scaled by a user-selected parameter. We abbreviate this method as CAmera aS Scanner, or CASS.

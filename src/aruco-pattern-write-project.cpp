@@ -82,6 +82,8 @@ int Create(string read_file, string write_directory){
 	int markerLength = 100;
 	int margins = squareLength - markerLength;
 	int arc_code =  cv::aruco::DICT_6X6_1000;
+	int white_space_buff = squareLength - markerLength;
+	int extra_to_add = 2*margins - white_space_buff;
 
 	string temp_string;
 
@@ -112,9 +114,13 @@ int Create(string read_file, string write_directory){
 	out << "margins " << margins << endl;
 	out << "arc_code " << arc_code << endl;
 	out.close();
-	imageSize.width = squaresX * squareLength;
-	imageSize.height = squaresY * squareLength;
 
+
+	white_space_buff = squareLength - markerLength;
+	extra_to_add = 2*margins - white_space_buff;
+
+	imageSize.width = squaresX * squareLength + extra_to_add;
+	imageSize.height = squaresY * squareLength + extra_to_add;
 
 	Mat markerImg;
 	Mat boardImage = Mat::zeros(imageSize.height, imageSize.width, CV_8UC1);
@@ -123,15 +129,15 @@ int Create(string read_file, string write_directory){
 
 	for (int x = 0, count = 0; x < squaresX; x++){
 		for (int y = 0; y < squaresY; y++, count++){
-			//cout << count << endl;
+
 			aruco::drawMarker(dictionary, count, markerLength, markerImg, 1);
 
 			/// where to place?
-			x0 = x*squareLength + margins/2;
-			y0 = y*squareLength + margins/2;
+			x0 = x*squareLength + margins;
+			y0 = y*squareLength + margins;
 
 			Rect R = Rect(x0, y0, markerLength, markerLength);
-			//cout << "x0, y0 " << x0 << ", " << y0 << endl;
+
 
 			markerImg.copyTo(boardImage(R));
 		}
@@ -164,6 +170,10 @@ int main(int argc, char **argv){
 	string input_file = "";
 
 	int print_help = 0;
+
+	if (argc == 1){
+		print_help = 1;
+	}
 
 	while (1)
 	{
